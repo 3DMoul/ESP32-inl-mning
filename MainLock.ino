@@ -2,6 +2,7 @@
 #include "Lock.h"
 LockRecorder record;
 Lock currentLock;
+int buzzerPin = 12;
 int redRGB = 14;
 int greenRGB = 6;
 int blueRGB = 7;
@@ -30,6 +31,7 @@ void setup()
   pinMode(redRGB, OUTPUT);
   pinMode(greenRGB, OUTPUT);
   pinMode(blueRGB, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
   analogWrite(redRGB, 0);
   analogWrite(greenRGB, 0);
   analogWrite(blueRGB, 255);
