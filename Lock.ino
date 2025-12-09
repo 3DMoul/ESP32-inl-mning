@@ -10,7 +10,10 @@ void Lock::checkLock(String c, class LockRecorder& object)
     analogWrite(redRGB, 0);
     analogWrite(greenRGB, 255);
     analogWrite(blueRGB, 0);
-    delay(10000);
+    tone(buzzerPin, 100);
+    delay(2000);
+    noTone(buzzerPin);
+    delay(8000);
     analogWrite(redRGB, 0);
     analogWrite(greenRGB, 0);
     analogWrite(blueRGB, 255);
@@ -22,7 +25,10 @@ void Lock::checkLock(String c, class LockRecorder& object)
     analogWrite(redRGB, 255);
     analogWrite(greenRGB, 0);
     analogWrite(blueRGB, 0);
-    delay(3000);
+    tone(buzzerPin, 100);
+    delay(3500);
+    noTone(buzzerPin);
+    delay(4500);
     analogWrite(redRGB, 0);
     analogWrite(greenRGB, 0);
     analogWrite(blueRGB, 255);
