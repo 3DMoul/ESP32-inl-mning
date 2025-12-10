@@ -1,5 +1,6 @@
 #include "LockRecorder.h"
 #include "Lock.h"
+#include "Matrix.h"
 LockRecorder record;
 Lock currentLock;
 int buzzerPin = 12;
@@ -7,16 +8,12 @@ int redRGB = 14;
 int greenRGB = 6;
 int blueRGB = 7;
 const int sizeOfCode = 4;
-const byte rows = 3;
-const byte cols = 3;
-const int rowPins[rows] = {4, 3, 2}; // output
-const int columnPins[cols] = {22, 21, 20};// input
-char buttonMatrix[rows][cols] = {
-  {'1', '2', '3'},//column 1
-   {'4', '5', '6'},//column 2
-    {'7', '8', '9'}};//column 3 
-    //here we have the matrix so we can get the value we want
-String codeAttempt = "";
+const byte rowsmain = 3;
+const byte colsmain = 3;
+const int rowPinsmain[rows] = {4, 3, 2}; // output
+const int columnPinsmain[cols] = {22, 21, 20};// input
+String newAttempt;
+String newCode;
 void setup()
 {
   Serial.begin(115200);
@@ -39,29 +36,48 @@ void setup()
 
 void loop()
 {
-  for (int i = 0; i < rows; i++)
+  long time = 0;
+  newAttempt += readMatrix();
+  while(digitalRead(columnPins[0]) == LOW && digitalRead(rowPins[0]) == LOW)
   {
-    digitalWrite(rowPins[i], LOW);
-    for ( int j = 0; j < cols; j++)
+    time += 1;
+    Serial.println(time);
+  }
+  delay(100);
+    if(time > 5000)
     {
-      if(digitalRead(columnPins[j]) == LOW)
+      analogWrite(redRGB, 255);
+      analogWrite(greenRGB, 255);
+      analogWrite(blueRGB, 255);
+      newAttempt = "";
+      bool istrue = true;
+      while(istrue == true)
       {
-        
-        codeAttempt += buttonMatrix[j][i];
-        Serial.println(codeAttempt);
-        Serial.println(codeAttempt.length());
-        if(codeAttempt.length() == 4)
+        newAttempt += readMatrix();
+        delay(75);
+        Serial.println(newAttempt.length());
+        if(newAttempt.length() == 4)
         {
-          currentLock.checkLock(codeAttempt, record);
-          codeAttempt = "";
+          currentLock.newCode(newAttempt);
+          time = 0;
+          newAttempt = "";
+          istrue = false;
+          analogWrite(redRGB, 0);
+          analogWrite(greenRGB, 0);
+          analogWrite(blueRGB, 255);
         }
-        while(digitalRead(columnPins[j]) == LOW)
-        {
-
-        }
+        delay(50);
       }
     }
-    digitalWrite(rowPins[i], HIGH);
-  }
+    else
+    {
+      Serial.println(newAttempt.length());
+      Serial.println(newAttempt);
+      if (newAttempt.length() == 4)
+      {
+        currentLock.checkLock(newAttempt, record);
+        newAttempt = "";
+      }
+    }
   delay(50);
 }//loop
