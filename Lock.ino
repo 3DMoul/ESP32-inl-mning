@@ -1,5 +1,6 @@
 #include "Lock.h"
 #include "LockRecorder.h"
+#include "Matrix.h"
 
 void Lock::checkLock(String c, class LockRecorder& object)
 {
@@ -11,9 +12,9 @@ void Lock::checkLock(String c, class LockRecorder& object)
     analogWrite(greenRGB, 255);
     analogWrite(blueRGB, 0);
     tone(buzzerPin, 100);
-    delay(2000);
+    delay(1000);
     noTone(buzzerPin);
-    delay(8000);
+    delay(9000);
     analogWrite(redRGB, 0);
     analogWrite(greenRGB, 0);
     analogWrite(blueRGB, 255);
@@ -26,15 +27,15 @@ void Lock::checkLock(String c, class LockRecorder& object)
     analogWrite(greenRGB, 0);
     analogWrite(blueRGB, 0);
     tone(buzzerPin, 100);
-    delay(3500);
+    delay(2500);
     noTone(buzzerPin);
-    delay(4500);
+    delay(5500);
     analogWrite(redRGB, 0);
     analogWrite(greenRGB, 0);
     analogWrite(blueRGB, 255);
   }
 }
-void Lock::newCode()
+void Lock::newCode(String newC)
 {
-  Serial.println("Write new code: ");
+  lockCode = newC;
 }
