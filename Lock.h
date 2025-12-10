@@ -5,7 +5,7 @@ class Lock
 {
   public:
   void checkLock(String c, class LockRecorder& object);
-  void newCode();
+  void newCode(String newC);
   private:
   bool lockedStatus = true;
   String lockCode = "1234";
