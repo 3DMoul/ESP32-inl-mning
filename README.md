@@ -1,4 +1,10 @@
 # ESP32-inl-mning
+hårdvara
+1 RGB
+3 220 ohm resistors 
+Har 3 220 ohm resistorer en för varje färg pin så att inte RGBn överhetar eller brinner ut.
+9 Pushbuttons
+1 buzzar
 
 Här deklarerar vi button matrixen och rgb samt newattempt som kommer användas till att hålla i inputen för att låsa upp låset.
 deklarerar även LockRecord objectet och Lock objectet.
