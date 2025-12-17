@@ -23,6 +23,7 @@ String readMatrix()
         if(digitalRead(columnPins[j]) == LOW)
         {
           codeAttempt += buttonMatrix[j][i];
+          delay(50);
           return codeAttempt;
         }
       }
