@@ -13,7 +13,6 @@ const byte colsmain = 3;
 const int rowPinsmain[rows] = {4, 3, 2}; // output
 const int columnPinsmain[cols] = {22, 21, 20};// input
 String newAttempt;
-String newCode;
 void setup()
 {
   Serial.begin(115200);
